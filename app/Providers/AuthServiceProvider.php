@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Enums\Role;
+use App\Models\Course;
+use App\Policies\CoursePolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -14,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Course::class => CoursePolicy::class,
     ];
 
     /**
@@ -25,6 +29,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('isAdmin', function ($user) {
+            return $user->role == Role::ADMIN->value;
+        });
+
+        Gate::define('isStudent', function ($user) {
+            return $user->role == Role::STUDENT->value;
+        });
+
+        Gate::define('isTeacher', function ($user) {
+            return $user->role == Role::TEACHER->value;
+        });
     }
 }
