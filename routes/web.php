@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::controller(CourseController::class)->prefix('courses')->name('courses.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/all', 'all')->name('all');
+    Route::get('create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('{course}/show', 'show')->name('show');
+    Route::get('{course}/edit', 'edit')->name('edit');
+    Route::put('{course}', 'update')->name('update');
+    Route::delete('{course}', 'destroy')->name('destroy');
+});
+
