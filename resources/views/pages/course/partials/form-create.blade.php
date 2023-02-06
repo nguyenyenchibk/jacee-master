@@ -9,7 +9,7 @@
             <div class="mt-4">
             <x-jet-label for="description" value="{{ __('Description') }}" />
             <div class="form-floating">
-            <x-jet-input id="description" class="block mt-1 w-full" type="text" name="description" required/>
+            <x-jet-textarea id="description" class="block mt-1 w-full" type="text" name="description" required/>
             </div>
             </div>
 

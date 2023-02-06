@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class CourseController extends Controller
 {
@@ -16,7 +17,11 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view('pages.course.index')->with('course', Auth::user()->courses()->get());
+        if (Gate::allows('isTeacher')) {
+            return view('pages.course.index')->with('course', Auth::teacher()->courses()->get());
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -26,7 +31,11 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('pages.course.create');
+        if (Gate::allows('isTeacher')) {
+            return view('pages.course.create'); 
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -52,7 +61,11 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        return view('pages.course.edit', compact('course'));
+        if (Gate::allows('isTeacher') && auth()->user()->can('update', $course)) {
+            return view('pages.course.edit', compact('course'));
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -77,8 +90,12 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        $course->delete($course);
-        return redirect()->route('courses.index');
+        if (Gate::allows('isTeacher') && auth()->user()->can('delete', $course)) {
+            $course->delete($course);
+            return redirect()->route('courses.index');
+        } else {
+            abort(403);
+        }
     }
 
     public function all()
