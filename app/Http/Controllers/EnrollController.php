@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class EnrollController extends Controller
 {
@@ -26,11 +27,7 @@ class EnrollController extends Controller
      */
     public function create(Course $course)
     {
-        $enroll = null;
-        foreach ($course->enrollments as $enrollments)
-        {
-            $enroll = DB::table('course_user')->where('user_id', Auth::user()->id)->where('course_id', $course->id)->first();
-        }
+        $enroll = DB::table('course_user')->where('user_id', Auth::user()->id)->where('course_id', $course->id)->first();
         return view('pages.enroll.create', compact('course','enroll'));
     }
 
@@ -42,7 +39,8 @@ class EnrollController extends Controller
      */
     public function store(Course $course)
     {
-        if(Auth::user()->id !== $course->user_id) {
+        $enroll = DB::table('course_user')->where('user_id', Auth::user()->id)->where('course_id', $course->id)->first();
+        if(Gate::allows('isStudent') && $enroll === null) {
             $course->enrollments()->attach(Auth::user());
             return redirect()->back();
         } else {

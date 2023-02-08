@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Gate;
 
 class CourseController extends Controller
 {
+    public function all()
+    {
+        return view('pages.course.all')->with('course', Course::get()->all());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +24,9 @@ class CourseController extends Controller
         if (Gate::allows('isTeacher')) {
             return view('pages.course.index')->with('course', Auth::user()->courses()->get());
         } 
+        elseif (Gate::allows('isStudent')) {
+            return view('pages.course.index')->with('course', Auth::user()->enrollCourse()->get());
+        }
         else {
             abort(403);
         }
@@ -47,11 +54,14 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        //
-        $input = $request->validated();
-        $course = Auth::user()->courses()->create($input);
-        $course->save();
-        return redirect()->route('courses.index');
+        if (Gate::allows('isTeacher')) {
+            $input = $request->validated();
+            $course = Auth::user()->courses()->create($input);
+            $course->save();
+            return redirect()->route('courses.index');
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -78,9 +88,13 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course)
     {
-        $input = $request->validated();
-        $course->update($input);
-        return view('pages.course.edit', compact('course'));
+        if (Gate::allows('isTeacher') && auth()->user()->can('update', $course)) {
+            $input = $request->validated();
+            $course->update($input);
+            return view('pages.course.edit', compact('course'));
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -97,15 +111,5 @@ class CourseController extends Controller
         } else {
             abort(403);
         }
-    }
-
-    public function all()
-    {
-        return view('pages.course.all')->with('course', Course::get()->all());
-    }
-
-    public function show(Course $course)
-    {
-        return view('pages.course.show', compact('course'));
     }
 }

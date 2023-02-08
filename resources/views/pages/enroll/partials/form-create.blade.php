@@ -43,6 +43,12 @@
                     {{ __('Enrolled Course') }}
                 </x-jet-button>
             </div>
+            @elseif(Auth::user()->role !== App\Enums\Role::STUDENT)
+            <div class="flex items-center justify-end mt-4">
+                <x-jet-button class="ml-4" disabled>
+                    {{ __('Enroll') }}
+                </x-jet-button>
+            </div>
             @else
             <div class="flex items-center justify-end mt-4">
                 <x-jet-button class="ml-4">

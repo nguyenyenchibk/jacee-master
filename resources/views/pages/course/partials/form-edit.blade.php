@@ -40,6 +40,11 @@
                 </x-jet-button>
             </div>
     </form>
+    <form action="{{ route('courses.destroy', $course->id) }}" method="post">
+        @csrf
+        @method('delete')
+        <button type="submit" class="btn btn-outline-danger ml-3">Delete</button>
+    </form>
 </div>
 
 <script>
