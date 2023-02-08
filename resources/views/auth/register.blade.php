@@ -29,6 +29,15 @@
                 <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
+            <div class="mt-4">
+                <x-jet-label for="role" value="{{ __('You are want to be') }}" />
+                <select class="form-select block mt-1 w-full" aria-label="Default select example" id="role" name="role">
+                    <option selected>Open this select role</option>
+                    <option value="2">Student</option>
+                    <option value="3">Teacher</option>
+                </select>
+            </div>
+
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
                     <x-jet-label for="terms">

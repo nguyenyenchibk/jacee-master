@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Course;
 
 class User extends Authenticatable
 {
@@ -17,6 +17,11 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+
+    const ROLE_GUEST = 0;
+    const ROLE_ADMIN = 1;
+    const ROLE_STUDENT = 3;
+    const ROLE_TEACHER = 4;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +32,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -58,4 +64,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function enrollCourse()
+    {
+        return $this->belongsToMany(Course::class);
+    }
 }
