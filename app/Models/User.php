@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -65,8 +64,13 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function scopeIsTeacher(Builder $query)
+    public function courses()
     {
-        $query->where('role', 3);
+        return $this->hasMany(Course::class);
+    }
+
+    public function enrollCourse()
+    {
+        return $this->belongsToMany(Course::class);
     }
 }

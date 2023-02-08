@@ -30,7 +30,7 @@
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-outline-success"><a
-                                                href="{{ route('courses.show', $course->id) }}">Show</a></button>
+                                                href="{{ route('courses.enroll.create', $course->id) }}">Show</a></button>
                                     </div>
                                 </td>
                             </tr>

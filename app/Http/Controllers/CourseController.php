@@ -18,7 +18,7 @@ class CourseController extends Controller
     public function index()
     {
         if (Gate::allows('isTeacher')) {
-            return view('pages.course.index')->with('course', Auth::teacher()->courses()->get());
+            return view('pages.course.index')->with('course', Auth::user()->courses()->get());
         } else {
             abort(403);
         }
@@ -32,7 +32,7 @@ class CourseController extends Controller
     public function create()
     {
         if (Gate::allows('isTeacher')) {
-            return view('pages.course.create'); 
+            return view('pages.course.create');
         } else {
             abort(403);
         }
@@ -106,5 +106,16 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         return view('pages.course.show', compact('course'));
+    }
+
+    public function createEnroll(Course $course)
+    {
+        return view('pages.course.create-enroll', compact('course'));
+    }
+
+    public function storeEnroll(Course $course)
+    {
+        $course->enrollments()->attach(Auth::user());
+        return redirect()->route('courses.index');
     }
 }

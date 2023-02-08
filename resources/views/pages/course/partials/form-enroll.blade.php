@@ -1,6 +1,6 @@
 <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-    <form method="POST" action="{{ route('courses.show', $course->id ) }}">
-    @csrf
+    <form method="POST" action="{{ route('courses.enroll.store', $course->id ) }}">
+        @csrf
             <div>
                 <x-jet-label for="title" value="{{ __('Title') }}" />
                 <x-jet-label id="title" class="block mt-1 w-full" type="text" name="title" value="{{ $course->title }}" required />
@@ -8,7 +8,7 @@
 
             <div class="mt-4">
                 <x-jet-label for="description" value="{{ __('Description') }}" />
-                <x-jet-label id="description" class="block mt-1 w-full" type="textarea" name="description" value="{{ $course->description }}" required />
+                <x-jet-label id="description" class="block mt-1 w-full" type="text" name="description" value="{{ $course->description }}" required />
             </div>
 
             <div class="mt-4">
@@ -33,7 +33,7 @@
 
             <div class="flex items-center justify-end mt-4">
                 <x-jet-button class="ml-4">
-                    {{ __('Edit') }}
+                    {{ __('Enroll') }}
                 </x-jet-button>
             </div>
     </form>

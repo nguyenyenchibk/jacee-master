@@ -36,6 +36,8 @@ Route::controller(CourseController::class)->prefix('courses')->name('courses.')-
     Route::get('{course}/show', 'show')->name('show');
     Route::get('{course}/edit', 'edit')->name('edit');
     Route::put('{course}', 'update')->name('update');
+    Route::get('enroll/{course}/', 'createEnroll')->name('enroll.create');
+    Route::post('enroll/{course}/', 'storeEnroll')->name('enroll.store');
     Route::delete('{course}', 'destroy')->name('destroy');
 });
 
