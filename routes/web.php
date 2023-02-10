@@ -41,6 +41,6 @@ Route::controller(CourseController::class)->prefix('courses')->name('courses.')-
 });
 
 Route::controller(EnrollController::class)->prefix('courses/enroll')->name('courses.')->group(function () {
-    Route::get('enroll/{course}/create', 'create')->name('enroll.create');
-    Route::post('enroll{course}/', 'store')->name('enroll.store');
+    Route::get('{course}/create', 'create')->name('enroll.create');
+    Route::post('{course}/', 'store')->name('enroll.store');
 });
