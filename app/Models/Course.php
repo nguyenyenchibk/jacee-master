@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Lesson;
 
 class Course extends Model
 {
@@ -27,5 +28,10 @@ class Course extends Model
     public function enrollments()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
     }
 }

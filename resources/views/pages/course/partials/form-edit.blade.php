@@ -1,5 +1,5 @@
 <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-    <form method="POST" action="{{ route('courses.update', $course->id ) }}">
+    <form method="POST" action="{{ route('courses.update', $course ) }}">
         @csrf
         @method('PUT')
         <div>
@@ -46,26 +46,22 @@
             </x-jet-button>
         </div>
     </form>
-    <form action="{{ route('courses.destroy', $course->id) }}" method="post">
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-outline-success btn-lg">
+            <a href="{{ route('lessons.index', $course) }}">Lessson List</a>
+        </button>
+    </div>
+    <form action="{{ route('courses.destroy', $course) }}" method="post">
         @csrf
         @method('delete')
-        <button type="submit" class="btn btn-outline-danger ml-3">Delete</button>
+        <button type="submit" class="btn btn-outline-danger ml-3 btn-lg">Delete</button>
     </form>
 </div>
 
 <script>
-    $(function() {
-  $('input[name="started_date"]').daterangepicker({
-    singleDatePicker: true,
-    showDropdowns: true,
-    minYear: 2010,
-    maxYear: 2050
-  });
-  $('input[name="ended_date"]').daterangepicker({
-    singleDatePicker: true,
-    showDropdowns: true,
-    minYear: 2010,
-    maxYear: 2050
-  });
-});
+  $( function() {
+    $( "#started_date" ).datepicker();
+    $( "#ended_date" ).datepicker();
+  } );
 </script>

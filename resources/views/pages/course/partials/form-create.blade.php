@@ -42,18 +42,8 @@
 </div>
 
 <script>
-    $(function() {
-  $('input[name="started_date"]').daterangepicker({
-    singleDatePicker: true,
-    showDropdowns: true,
-    minYear: 2010,
-    maxYear: 2050
-  });
-  $('input[name="ended_date"]').daterangepicker({
-    singleDatePicker: true,
-    showDropdowns: true,
-    minYear: 2010,
-    maxYear: 2050
-  });
-});
+  $( function() {
+    $( "#started_date" ).datepicker();
+    $( "#ended_date" ).datepicker();
+  } );
 </script>
