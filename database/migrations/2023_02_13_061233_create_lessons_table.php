@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('duration_time');
+            $table->string('lesson_video_path', 10240)->nullable();
             $table->timestamps();
         });
     }

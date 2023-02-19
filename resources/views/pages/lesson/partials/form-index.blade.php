@@ -3,7 +3,7 @@
         <div class="col-12 text-center pt-5">
             <div class="text-left">
                 <a href="{{ route('lessons.create', $course ) }}" class="btn btn-outline-primary">
-                    + Add new Course
+                    + Add new Lesson
                 </a>
             </div>
             <table class="table mt-3  text-left table-striped">

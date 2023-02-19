@@ -27,7 +27,7 @@
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://rawgit.com/digaev/jquery-time-duration-picker/master/dist/jquery-time-duration-picker.min.js"></script>
+    <script src="https://rawgit.com/digaev/jquery-time-duration-picker/master/dist/jquery-time-duration-picker.min.js"></script>=
 
     <!-- Styles -->
     @livewireStyles
